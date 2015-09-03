@@ -26,11 +26,13 @@ Things to change/improve
 - Refactor code
 - You should manually add all the Providers in the base provider. It should be changed using Reflection
 and an Annotation (maybe)
-- Order in getUris is **IMPORTANT**! Use a LinkedHashMap to keep the insertion order.
 
 
 Notes
 ===
 
 - ContentProviders can have max 100 endpoints
+- Order in getUris is **IMPORTANT**! Use a LinkedHashMap to keep the insertion order.
+
+
 
