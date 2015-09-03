@@ -70,7 +70,7 @@ public class BaseContentProviderTest extends ProviderTestCase2<BaseContentProvid
 
     final Uri result = mockContentResolver.insert(uri, values);
     assertEquals(
-        "content://com.besaba.revonline.multiplecontentproviderpattern.provider/blocks/2",
+        "content://com.besaba.revonline.multiplecontentproviderpattern.provider/blocks/3",
         result.toString()
     );
   }
