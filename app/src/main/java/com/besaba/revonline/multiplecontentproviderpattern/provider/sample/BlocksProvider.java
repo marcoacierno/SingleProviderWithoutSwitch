@@ -82,11 +82,13 @@ public class BlocksProvider implements InnerContentProvider {
 
   @Override
   public int delete(final int matchId, final String selection, final String[] selectionArgs) {
+    // example
     return 0;
   }
 
   @Override
   public int update(final int matchId, final ContentValues values, final String selection, final String[] selectionArgs) {
+    // example
     return 0;
   }
 
