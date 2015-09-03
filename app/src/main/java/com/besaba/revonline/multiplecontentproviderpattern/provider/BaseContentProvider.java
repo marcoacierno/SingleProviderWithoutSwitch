@@ -115,4 +115,12 @@ public class BaseContentProvider extends ContentProvider {
 
     return match;
   }
+
+  public static Uri buildUriWithId(final InnerContentProvider provider, final String id) {
+    return BASE_CONTENT_URI
+        .buildUpon()
+        .appendPath(provider.getProviderName())
+        .appendPath(id)
+        .build();
+  }
 }

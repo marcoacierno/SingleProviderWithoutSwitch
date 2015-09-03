@@ -1,13 +1,14 @@
 package com.besaba.revonline.multiplecontentproviderpattern.provider;
 
 import android.annotation.TargetApi;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.test.ProviderTestCase2;
 import android.test.mock.MockContentResolver;
 
-@TargetApi(Build.VERSION_CODES.CUPCAKE)
+@TargetApi(Build.VERSION_CODES.KITKAT)
 public class BaseContentProviderTest extends ProviderTestCase2<BaseContentProvider> {
   private MockContentResolver mockContentResolver;
 
@@ -57,5 +58,20 @@ public class BaseContentProviderTest extends ProviderTestCase2<BaseContentProvid
 
     assertEquals(3, query.getInt(query.getColumnIndex("_id")));
     assertEquals("Between", query.getString(query.getColumnIndex("blockName")));
+  }
+
+  public void testInsertNewRowInBlocksEndpoint() throws Exception {
+    final Uri uri = Uri.parse("content://" + PROVIDER_AUTHORITY + "/blocks/");
+    final int elementsBefore = mockContentResolver.query(uri, null, null, null, null, null).getCount();
+
+    final ContentValues values = new ContentValues();
+    values.put("blockName", "my block");
+    values.put("_id", 5);
+
+    final Uri result = mockContentResolver.insert(uri, values);
+    assertEquals(
+        "content://com.besaba.revonline.multiplecontentproviderpattern.provider/blocks/2",
+        result.toString()
+    );
   }
 }

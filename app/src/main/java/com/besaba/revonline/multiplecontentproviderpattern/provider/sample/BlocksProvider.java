@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
 
+import com.besaba.revonline.multiplecontentproviderpattern.provider.BaseContentProvider;
 import com.besaba.revonline.multiplecontentproviderpattern.provider.InnerContentProvider;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,6 +15,14 @@ public class BlocksProvider implements InnerContentProvider {
   private static final int BLOCKS = 0;
   private static final int BLOCKS_BETWEEN = 1;
   private static final int BLOCKS_ID = 2;
+
+  private final MatrixCursor blocksFakeCursor = new MatrixCursor(new String[] {"_id", "blockName"});
+
+  {
+    blocksFakeCursor.addRow(new Object[] {0, "My"});
+    blocksFakeCursor.addRow(new Object[] {1, "Block"});
+    blocksFakeCursor.addRow(new Object[] {2, "Between"});
+  }
 
   @Override
   public String getProviderName() {
@@ -64,7 +72,12 @@ public class BlocksProvider implements InnerContentProvider {
 
   @Override
   public Uri insert(final int matchId, final ContentValues values) {
-    return null;
+    if (matchId != BLOCKS) {
+      return null;
+    }
+
+    blocksFakeCursor.addRow(new Object[] {values.get("_id"), values.get("blockName")});
+    return BaseContentProvider.buildUriWithId(this, String.valueOf(blocksFakeCursor.getCount() - 1));
   }
 
   @Override
