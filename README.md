@@ -14,7 +14,7 @@ Classes (in com.besaba.revonline.multiplecontentproviderpattern.provider)
 It's responsabile to redirect requests to the correct inner content providers.
 - .InnerContentProvider: Every class that wants to act as inner provider should implement this interface.
 Every method inside acts as if the class itself was a ContentProvider with the only difference that
-they have an int matchId instead of an uri. \nThe method getProviderName should return the name of the
+they have an int matchId instead of an uri. The method getProviderName should return the name of the
 provider. It will be used to generate the uri (for example, if the method returns "blocks" the URI will be
 AUTHORITY + "/" + "blocks")
 
