@@ -32,18 +32,8 @@ public class BaseContentProvider extends ContentProvider {
     int baseId = 100;
 
     for (final InnerContentProvider provider : tempProviders) {
-      final Uri providerUri =
-          BASE_CONTENT_URI
-              .buildUpon()
-              .appendPath(provider.getProviderName())
-              .build();
-
       for (final Map.Entry<String, Integer> entry : provider.getUris().entrySet()) {
-        final String realPath = providerUri
-            .buildUpon()
-            .appendEncodedPath(entry.getKey())
-            .build()
-            .toString();
+        final String realPath = provider.getProviderName() + "/" + entry.getKey();
         final int code = baseId + entry.getValue();
 
         uriMatcher.addURI(
@@ -117,41 +107,6 @@ public class BaseContentProvider extends ContentProvider {
   }
 
   private int matchOrThrow(final Uri uri) {
-    final List<InnerContentProvider> tempProviders = Arrays.<InnerContentProvider>asList(
-        new BlocksProvider()
-    );
-
-    final Map<Integer, InnerContentProvider> tempMap = new HashMap<>();
-
-    int baseId = 100;
-
-    for (final InnerContentProvider provider : tempProviders) {
-      final Uri providerUri =
-          BASE_CONTENT_URI
-              .buildUpon()
-              .appendPath(provider.getProviderName())
-              .build();
-
-      for (final Map.Entry<String, Integer> entry : provider.getUris().entrySet()) {
-        final String realPath = providerUri
-            .buildUpon()
-            .appendEncodedPath(entry.getKey())
-            .build()
-            .toString();
-        final int code = baseId + entry.getValue();
-
-        uriMatcher.addURI(
-            AUTHORITY,
-            realPath,
-            code
-        );
-
-        tempMap.put(code, provider);
-      }
-
-      baseId += MAX_ENDPOINTS_FOR_PROVIDER;
-    }
-
     final int match = uriMatcher.match(uri);
 
     if (match == UriMatcher.NO_MATCH) {

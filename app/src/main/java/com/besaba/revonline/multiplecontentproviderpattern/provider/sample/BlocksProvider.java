@@ -8,6 +8,7 @@ import android.net.Uri;
 import com.besaba.revonline.multiplecontentproviderpattern.provider.InnerContentProvider;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class BlocksProvider implements InnerContentProvider {
@@ -22,7 +23,7 @@ public class BlocksProvider implements InnerContentProvider {
 
   @Override
   public Map<String, Integer> getUris() {
-    final Map<String, Integer> map = new HashMap<>(3);
+    final Map<String, Integer> map = new LinkedHashMap<>(3);
 
     map.put("", BLOCKS);
     map.put("between/*/*", BLOCKS_BETWEEN);
